@@ -101,7 +101,7 @@ describe('angularjs homepage', function() {
     add(3, 4);
 
     expect(history.last().getText()).toContain('1 + 2');//it works like a stack
-    expect(history.first().getText()).toContain('3 + 4'); // This is wrong!
+    expect(history.first().getText()).toContain('3 + 4'); 
     
 
     add(5, 6);
