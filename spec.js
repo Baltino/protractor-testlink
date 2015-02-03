@@ -13,8 +13,8 @@ describe('angularjs homepage', function() {
   var history = element.all(by.repeater('result in memory'));
   var result;
   var TEST_CASE_1 = 44682,
-  	TEST_CASE_2 = ,
-  	TEST_CASE_3 = ;
+  	TEST_CASE_2 = 44843,
+  	TEST_CASE_3 = 44852;
 
 /*api_key= '6ed224eb86f5bdda068635c90bebd702471c534b67c2bd43f809554e0d714d8d'*/
 /*prefix='PTR_CAL_'*/
@@ -71,7 +71,7 @@ describe('angularjs homepage', function() {
 	}, function(testCase) {
 		console.log('Report test case:');
 		console.log(testCase);
-	});*/
+	});
   });
 
   it('should add one and two', function() {
@@ -106,6 +106,6 @@ describe('angularjs homepage', function() {
 
     add(5, 6);
 
-    expect(history.count()).toEqual(3); // This is wrong!
+    expect(history.count()).toEqual(3);
   });
 });
