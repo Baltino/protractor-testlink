@@ -11,41 +11,28 @@ Protractor calculator tested and helped by testlink
  
 
 ##Pre requisites
-* npm install -g protractor
-
-* webdriver-manager update
-
-* webdriver-manager install
-
-
-##Steps
-* Enter http://demo.testlink.org/latest/index.php. 
-user: user_aragon, pass: user_aragon. Has the Leader role. 
-
-* Go to test executions to see the results
 
 ### In your project directory
-npm install testlink-api-client
+    
+    npm install
+    ./node_modules/.bin/webdriver-manager update
+    ./node_modules/.bin/webdriver-manager install
 
-You will have to add an object to line 831 in \User\testlink-api-client\lib\testlinkapi.js
+On a new terminal
 
-status: {
+    ./node_modules/.bin/protractor conf.js
 
-      value: params.status || 'status',
-      
-      type: 'string'
-      
-  }
-  
-  
-Its important to set the port in the RPCurl (line 23 in spec.js) because this plugin checks for it.
+## Results
+
+Login at http://demo.testlink.org/latest/index.php with user_aragon / user_aragon. Has the Leader role.
+Go to test executions to see the results or simply follow below links:
+
+* http://demo.testlink.org/latest/lib/execute/execHistory.php?tcase_id=44682
+* http://demo.testlink.org/latest/lib/execute/execHistory.php?tcase_id=44843
+* http://demo.testlink.org/latest/lib/execute/execHistory.php?tcase_id=44852
+
+## Notes
+Already done but note it's important to set the port in the RPCurl (line 23 in spec.js) because this plugin checks for it.
 Be aware that the api attributes are not camelCased.
 
-At last: 
-
-protractor conf.js
-
-
-
-##Notes
-If you dont know any id or something(like passed tests, or test case id), use your browser console to inspect elements and see how test links manage them
+If you dont know any id or something (like passed tests, or test case id), use your browser console to inspect elements and see how test links manage them.
