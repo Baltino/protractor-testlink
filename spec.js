@@ -1,4 +1,5 @@
 // spec.js
+require('./ext/TestLinkApi.js');
 
 describe('angularjs homepage', function() {
 	/* These asignations made me a little uncomfortable 
@@ -31,19 +32,20 @@ describe('angularjs homepage', function() {
 	
   //show test project
   testlink.getTestProjectByName({
-  		testprojectname: 'Protractor Calculator'
+      testprojectname: 'Protractor Calculator'
+  		// testprojectname: 'PTR_CAL_-:Protractor Calculator'
 	}, function(project){
 		console.log('Test Project:');
 		console.log(project);
   });
 
   //show test case
-  testlink.getTestCaseIDByName({
-  	testcasename: testCaseId
-  }, function(testCase) {
-  	console.log('Test Case:');
-  	console.log(testCase);
-  });
+  // testlink.getTestCaseIDByName({
+  // 	testcasename: testCaseId || TEST_CASE_1,
+  // }, function(testCase) {
+  // 	console.log('Test Case:');
+  // 	console.log(testCase);
+  // });
 
 
   function add(a, b) {
@@ -56,23 +58,34 @@ describe('angularjs homepage', function() {
     browser.get('http://juliemr.github.io/protractor-demo/');
   });
 
-  afterEach(function() {
-  	result = (jasmine.getEnv().currentSpec.results_.passedCount) ? 'p' : 'f';
-	
-    testlink.reportTCResult({
-		testplanid: testPlanId,
-		testcaseid: testCaseId,
-		buildid: buildId,
-		notes: 'Note number 0',
-		platformname: 'chrome',
-		status: result,
-		user: 'user_aragon',
-		bugid: 12
-	}, function(testCase) {
-		console.log('Report test case:');
-		console.log(testCase);
-	});
+  afterEach(function(done) {
+    var failedStatus = (this.results_.failedCount > 0);
+    reportResutls(testCaseId, failedStatus, done);
   });
+
+  reportResutls = function(testCaseId, failedStatus, done) {
+    var results = {
+      testplanid: testPlanId,
+      testcaseid: testCaseId || TEST_CASE_1,
+      buildid: buildId,
+      notes: 'Note number 0',
+      platformname: 'chrome',
+      status: (failedStatus ? 'f' : 'p'),
+      user: 'user_aragon',
+      bugid: 12,
+    };
+	
+    // console.log('---------- results: '); console.log(results);
+    testlink.reportTCResult(results, function(testCase) {
+      console.log('Success reporting to TestLink:');
+      console.log(testCase);
+      done();
+  	}, function(err) {
+      console.error('ERROR on Report test case: ');
+      console.error(err);
+      done();
+  	});
+  };
 
   it('should add one and two', function() {
   	testCaseId = TEST_CASE_1;
@@ -84,7 +97,6 @@ describe('angularjs homepage', function() {
     expect(latestResult.getText()).toEqual('3');
   });
 
-
   it('should add four and six and work like a form', function() {
   	testCaseId = TEST_CASE_2;
     firstNumber.sendKeys(4);
@@ -93,6 +105,8 @@ describe('angularjs homepage', function() {
     secondNumber.sendKeys('\n');//protractor.key.ENTER
 
     expect(latestResult.getText()).toEqual('10');
+    // fail in purpose to check TestLink failed status
+    expect(latestResult.getText()).toEqual('11');
   });
 
   it('should have a history, and formatted accordingly', function() {

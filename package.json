@@ -1,0 +1,16 @@
+{
+  "name": "demo",
+  "version": "0.0.1",
+  "description": "Protractor-TestLink connection demo",
+  "main": "conf.js",
+  "keywords": [
+    "protractor",
+    "e2e",
+    "twixt"
+  ],
+  "author": "Jose",
+  "dependencies": {
+    "testlink-api-client": "git://github.com/elgalu/testlink-api-client.git#patches",
+    "protractor": "1.6.1"
+  }
+}
